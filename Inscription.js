@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Modal } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  ScrollView,
+  Modal,
+} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import MultiSelect from 'react-native-multiple-select';
 
@@ -25,26 +33,42 @@ const Inscription = ({ navigation }) => {
 
   useEffect(() => {
     fetch('https://troubled-red-garb.cyclic.app/professeurs')
-      .then(response => response.json())
-      .then(data => {
-        const specialites = [...new Set(data.map(professeur => professeur.specialite))].map(specialite => ({
-          label: specialite,
-          value: specialite
-        })).sort((a, b) => a.label.localeCompare(b.label));
+      .then((response) => response.json())
+      .then((data) => {
+        const specialites = [
+          ...new Set(data.map((professeur) => professeur.specialite)),
+        ]
+          .map((specialite) => ({
+            label: specialite,
+            value: specialite,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
 
-        const villesActuelles = [...new Set(data.map(professeur => professeur.villeFaculteActuelle))].map(ville => ({
-          label: ville,
-          value: ville
-        })).sort((a, b) => a.label.localeCompare(b.label));
+        const villesActuelles = [
+          ...new Set(data.map((professeur) => professeur.villeFaculteActuelle)),
+        ]
+          .map((ville) => ({
+            label: ville,
+            value: ville,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
 
-        const villesDesirees = [...new Set(data.map(professeur => professeur.villeDesiree.split(';')).flat())].map(ville => ({
-          label: ville,
-          value: ville
-        })).sort((a, b) => a.label.localeCompare(b.label));
+        const villesDesirees = [
+          ...new Set(
+            data.map((professeur) => professeur.villeDesiree.split(';')).flat()
+          ),
+        ]
+          .map((ville) => ({
+            label: ville,
+            value: ville,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
 
-        const grades = [...new Set(data.map(professeur => professeur.grade))].map(grade => ({
+        const grades = [
+          ...new Set(data.map((professeur) => professeur.grade)),
+        ].map((grade) => ({
           label: grade,
-          value: grade
+          value: grade,
         }));
 
         setSpecialiteOptions(specialites);
@@ -68,7 +92,18 @@ const Inscription = ({ navigation }) => {
       villesDesirees.length > 0;
 
     setIsButtonDisabled(!isFormValid);
-  }, [nom, prenom, telephone, email, motDePasse, grade, etablissement, specialite, villeActuelle, villesDesirees]);
+  }, [
+    nom,
+    prenom,
+    telephone,
+    email,
+    motDePasse,
+    grade,
+    etablissement,
+    specialite,
+    villeActuelle,
+    villesDesirees,
+  ]);
 
   const handleSubmit = () => {
     setModalVisible(true);
@@ -85,11 +120,7 @@ const Inscription = ({ navigation }) => {
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.label}>Last name:</Text>
-        <TextInput
-          style={styles.input}
-          value={nom}
-          onChangeText={setNom}
-        />
+        <TextInput style={styles.input} value={nom} onChangeText={setNom} />
         <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
@@ -103,11 +134,7 @@ const Inscription = ({ navigation }) => {
           onChangeText={setTelephone}
         />
         <Text style={styles.label}>Email:</Text>
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        />
+        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
         <Text style={styles.label}>Password:</Text>
         <TextInput
           style={styles.input}
@@ -163,13 +190,15 @@ const Inscription = ({ navigation }) => {
           submitButtonColor="#9BD1A8"
           submitButtonText="Ok"
         />
-        <Button color="#9BD1A8" style={styles.save} title="Sign up" onPress={handleSubmit} disabled={isButtonDisabled} />
+        <Button
+          color="#9BD1A8"
+          style={styles.save}
+          title="Sign up"
+          onPress={handleSubmit}
+          disabled={isButtonDisabled}
+        />
 
-        <Modal
-          visible={modalVisible}
-          animationType="slide"
-          transparent={true}
-        >
+        <Modal visible={modalVisible} animationType="slide" transparent={true}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
               <Text style={styles.modalText}>Registration successful!</Text>
@@ -186,19 +215,23 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#ffffff',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+    
   },
   titleContainer: {
-    alignItems: 'center',
-    marginBottom: 16,
+    backgroundColor: '#9BD1A8',
+    padding: 16,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
+    color:'#ffffff',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   contentContainer: {
     flex: 1,
+     paddingVertical: 16,
+    paddingHorizontal: 24,
   },
   label: {
     fontSize: 16,

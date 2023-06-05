@@ -256,7 +256,8 @@ const styles = StyleSheet.create({
   },
   titreacc: {
     backgroundColor: '#8CBED6',
-    padding: 20,
+    padding: 16,
+    marginBottom: 30,
 
   },
   cardContainer: {

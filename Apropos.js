@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     backgroundColor: '#FFAEB9',
-    padding: 16,
-  },
+      padding: 16,
+    marginBottom: 30,  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
