@@ -31,7 +31,7 @@ const VillesDemandeesCard = () => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.cardTitle}>Villes les plus demandées (Top 15)</Text>
+      <Text style={styles.cardTitle}>Most requested cities (Top 15):</Text>
       <View style={styles.table}>
         {villesLesPlusDemandees.map(([ville, count], index) => (
           <View key={index} style={styles.row}>

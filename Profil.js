@@ -52,14 +52,14 @@ const Profil = () => {
         ].map((specialite) => ({
           label: specialite,
           value: specialite,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesActuelles = [
           ...new Set(data.map((professeur) => professeur.villeFaculteActuelle)),
         ].map((ville) => ({
           label: ville,
           value: ville,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesDesirees = [
           ...new Set(
@@ -68,7 +68,7 @@ const Profil = () => {
         ].map((ville) => ({
           label: ville,
           value: ville,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const grades = [
           ...new Set(data.map((professeur) => professeur.grade)),
@@ -139,7 +139,7 @@ const Profil = () => {
       payload: null,
     };
     store.dispatch(action);
-    navigation.navigate('Accueil');
+    navigation.navigate('Home');
   };
 
   const handleModalClose = () => {
@@ -151,33 +151,56 @@ const Profil = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Profil</Text>
       </View>
+      <Button
+        color="#D15a5a"
+        title="Logout"
+        styles={{ marginTop: 20 }}
+        onPress={handleLogout}
+      />
 
       <View style={styles.card}>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Nom:</Text> {nom}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Prénom:</Text> {prenom}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Téléphone:</Text> {telephone}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Email:</Text> {email}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Grade:</Text> {grade}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Établissement:</Text> {etablissement}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Spécialité:</Text> {specialite}</Text>
-        <Text style={styles.cardText}><Text style={styles.textgras}>Ville actuelle:</Text> {villeActuelle}</Text>
         <Text style={styles.cardText}>
-          <Text style={styles.textgras}> Villes désirées:</Text> {villesDesirees.join(', ')}
+          <Text style={styles.textgras}>Last name:</Text> {nom}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Name:</Text> {prenom}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Phone:</Text> {telephone}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Email:</Text> {email}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Rank:</Text> {grade}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Establishment:</Text> {etablissement}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Speciality:</Text> {specialite}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}>Current City:</Text> {villeActuelle}
+        </Text>
+        <Text style={styles.cardText}>
+          <Text style={styles.textgras}> Desired cities::</Text>{' '}
+          {villesDesirees.join(', ')}
         </Text>
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.label}>Nom:</Text>
+        <Text style={styles.label}>Last name:</Text>
         <TextInput style={styles.input} value={nom} onChangeText={setNom} />
 
-        <Text style={styles.label}>Prénom:</Text>
+        <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
           value={prenom}
           onChangeText={setPrenom}
         />
 
-        <Text style={styles.label}>Téléphone:</Text>
+        <Text style={styles.label}>Phone:</Text>
         <TextInput
           style={styles.input}
           value={telephone}
@@ -187,43 +210,43 @@ const Profil = () => {
         <Text style={styles.label}>Email:</Text>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} />
 
-        <Text style={styles.label}>Grade:</Text>
+        <Text style={styles.label}>Rank:</Text>
         <RNPickerSelect
           value={grade}
           onValueChange={setGrade}
           items={gradeOptions}
         />
 
-        <Text style={styles.label}>Établissement:</Text>
+        <Text style={styles.label}>Establishment:</Text>
         <TextInput
           style={styles.input}
           value={etablissement}
           onChangeText={setEtablissement}
         />
 
-        <Text style={styles.label}>Spécialité:</Text>
+        <Text style={styles.label}>Speciality:</Text>
         <RNPickerSelect
           value={specialite}
           onValueChange={setSpecialite}
           items={specialiteOptions}
         />
 
-        <Text style={styles.label}>Ville actuelle:</Text>
+        <Text style={styles.label}>Current City:</Text>
         <RNPickerSelect
           value={villeActuelle}
           onValueChange={setVilleActuelle}
           items={villeActuelleOptions}
         />
 
-        <Text style={styles.label}>Villes désirées:</Text>
+        <Text style={styles.label}>Desired cities:</Text>
         <MultiSelect
           hideTags
           items={villeDesireeOptions}
           uniqueKey="value"
           onSelectedItemsChange={setVillesDesirees}
           selectedItems={villesDesirees}
-          selectText="Sélectionner les villes"
-          searchInputPlaceholderText="Rechercher..."
+          selectText="Select cities"
+          searchInputPlaceholderText="Search..."
           onChangeInput={(text) => console.log(text)}
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
@@ -234,17 +257,15 @@ const Profil = () => {
           displayKey="label"
           searchInputStyle={{ color: '#CCC' }}
           submitButtonColor="#9BD1A8"
-          submitButtonText="Valider"
+          submitButtonText="Ok"
         />
 
         <Button
           color="#9BD1A8"
-          title="Enregistrer"
+          title="Save"
           onPress={handleSubmit}
           disabled={isButtonDisabled}
         />
-
-        <Button color="#D15a5a" title="Logout" styles={{marginTop: 20}} onPress={handleLogout} />
       </View>
 
       <Modal
@@ -253,9 +274,9 @@ const Profil = () => {
         onRequestClose={handleModalClose}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            Les modifications ont été enregistrées avec succès !
+            Changes have been saved successfully !
           </Text>
-          <Button color="#9BD1A8" title="Fermer" onPress={handleModalClose} />
+          <Button color="#9BD1A8" title="Close" onPress={handleModalClose} />
         </View>
       </Modal>
     </ScrollView>
@@ -265,17 +286,18 @@ const Profil = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 20,
     backgroundColor: '#F5F5F5',
   },
   titleContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
+    backgroundColor: '#9BD1A8',
+    padding: 16,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
   },
   card: {
     backgroundColor: '#FFF',
@@ -286,9 +308,8 @@ const styles = StyleSheet.create({
   cardText: {
     marginBottom: 10,
   },
-  textgras:{
-        fontWeight: 'bold',
-
+  textgras: {
+    fontWeight: 'bold',
   },
   formContainer: {
     backgroundColor: '#FFF',

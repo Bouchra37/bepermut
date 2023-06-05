@@ -22,7 +22,7 @@ const ProfesseursParGradeCard = () => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.cardTitle}>Nombre de profs par grade</Text>
+      <Text style={styles.cardTitle}>Number of teachers per grade:</Text>
       <View style={styles.table}>
         {professeursParGrade.map(([grade, count], index) => (
           <View key={index} style={styles.row}>

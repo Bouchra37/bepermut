@@ -26,7 +26,7 @@ const ProfesseursParSpecialiteCard = () => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.cardTitle}>Nombre de profs par spécialité (Top 15)</Text>
+      <Text style={styles.cardTitle}>Number of teachers by specialty (Top 15):</Text>
       <View style={styles.table}>
         {professeursParSpecialite.map(([specialite, count], index) => (
           <View key={index} style={styles.row}>

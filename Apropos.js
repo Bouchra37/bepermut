@@ -6,7 +6,7 @@ const Apropos = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>À propos</Text>
+        <Text style={styles.title}>About</Text>
       </View>
       <ScrollView>
         <Card style={styles.card}>

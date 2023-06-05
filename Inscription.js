@@ -22,15 +22,7 @@ const Inscription = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-const [loggedin, setLoggedin] = useState('');
-  async () => {
-    const id = await AsyncStorage.getItem('id');
-    if (id) {
-      setLoggedin(id);
-    }
-  };
-  let isLoggedIn = () => loggedin.length > 0;
-  console.log(isLoggedIn());
+
   useEffect(() => {
     fetch('https://troubled-red-garb.cyclic.app/professeurs')
       .then(response => response.json())
@@ -38,17 +30,17 @@ const [loggedin, setLoggedin] = useState('');
         const specialites = [...new Set(data.map(professeur => professeur.specialite))].map(specialite => ({
           label: specialite,
           value: specialite
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesActuelles = [...new Set(data.map(professeur => professeur.villeFaculteActuelle))].map(ville => ({
           label: ville,
           value: ville
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesDesirees = [...new Set(data.map(professeur => professeur.villeDesiree.split(';')).flat())].map(ville => ({
           label: ville,
           value: ville
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const grades = [...new Set(data.map(professeur => professeur.grade))].map(grade => ({
           label: grade,
@@ -88,24 +80,23 @@ const [loggedin, setLoggedin] = useState('');
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.titelcont}>
-        <Text style={styles.title}>Inscription</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Sign up</Text>
       </View>
-      <View style={styles.totalpage}>
-        <Text style={styles.label}>Nom:</Text>
+      <View style={styles.contentContainer}>
+        <Text style={styles.label}>Last name:</Text>
         <TextInput
           style={styles.input}
           value={nom}
           onChangeText={setNom}
-          
         />
-        <Text style={styles.label}>Prénom:</Text>
+        <Text style={styles.label}>Name:</Text>
         <TextInput
           style={styles.input}
           value={prenom}
           onChangeText={setPrenom}
         />
-        <Text style={styles.label}>Téléphone:</Text>
+        <Text style={styles.label}>Phone number:</Text>
         <TextInput
           style={styles.input}
           value={telephone}
@@ -117,49 +108,49 @@ const [loggedin, setLoggedin] = useState('');
           value={email}
           onChangeText={setEmail}
         />
-        <Text style={styles.label}>Mot de passe:</Text>
+        <Text style={styles.label}>Password:</Text>
         <TextInput
           style={styles.input}
           value={motDePasse}
           onChangeText={setMotDePasse}
           secureTextEntry
         />
-        <Text style={styles.label}>Grade:</Text>
+        <Text style={styles.label}>Rank:</Text>
         <RNPickerSelect
           value={grade}
           onValueChange={setGrade}
           items={gradeOptions}
-          placeholder={{ label: 'Sélectionner le grade', value: null }}
+          placeholder={{ label: 'Select rank', value: null }}
         />
-        <Text style={styles.label}>Établissement:</Text>
+        <Text style={styles.label}>Establishment:</Text>
         <TextInput
           style={styles.input}
           value={etablissement}
           onChangeText={setEtablissement}
         />
-        <Text style={styles.label}>Spécialité:</Text>
+        <Text style={styles.label}>Speciality:</Text>
         <RNPickerSelect
           value={specialite}
           onValueChange={setSpecialite}
           items={specialiteOptions}
-          placeholder={{ label: 'Sélectionner une spécialité', value: null }}
+          placeholder={{ label: 'Select speciality', value: null }}
         />
-        <Text style={styles.label}>Ville actuelle:</Text>
+        <Text style={styles.label}>Current City:</Text>
         <RNPickerSelect
           value={villeActuelle}
           onValueChange={setVilleActuelle}
           items={villeActuelleOptions}
-          placeholder={{ label: 'Sélectionner la ville actuelle', value: null }}
+          placeholder={{ label: 'Select current city', value: null }}
         />
-        <Text style={styles.label}>Villes désirées:</Text>
+        <Text style={styles.label}>Desired cities:</Text>
         <MultiSelect
           hideTags
           items={villeDesireeOptions}
           uniqueKey="value"
           onSelectedItemsChange={setVillesDesirees}
           selectedItems={villesDesirees}
-          selectText="Sélectionner les villes désirées"
-          searchInputPlaceholderText="Sélectionner..."
+          selectText="Select desired cities:"
+          searchInputPlaceholderText="Select..."
           onChangeInput={(text) => console.log(text)}
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
@@ -170,9 +161,9 @@ const [loggedin, setLoggedin] = useState('');
           displayKey="label"
           searchInputStyle={{ color: '#CCC' }}
           submitButtonColor="#9BD1A8"
-          submitButtonText="Valider"
+          submitButtonText="Ok"
         />
-        <Button color="#9BD1A8" style={styles.save} title="Envoyer" onPress={handleSubmit} disabled={isButtonDisabled} />
+        <Button color="#9BD1A8" style={styles.save} title="Sign up" onPress={handleSubmit} disabled={isButtonDisabled} />
 
         <Modal
           visible={modalVisible}
@@ -181,7 +172,7 @@ const [loggedin, setLoggedin] = useState('');
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalText}>Inscription effectuée avec succès!</Text>
+              <Text style={styles.modalText}>Registration successful!</Text>
               <Button color="#9BD1A8" title="OK" onPress={handleModalClose} />
             </View>
           </View>
@@ -195,36 +186,33 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#ffffff',
+    paddingVertical: 16,
+    paddingHorizontal: 24,
   },
-  titelcont: {
-    backgroundColor: '#9BD1A8',
-    padding: 16,
-  },
-  totalpage: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 50,
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 16,
   },
   title: {
-    fontSize: 22,
-    color: '#ffffff',
+    fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
+  },
+  contentContainer: {
+    flex: 1,
   },
   label: {
     fontSize: 16,
-    marginTop: 20,
-    marginBottom: 5,
-  },
-  save:{
-      marginTop:60,
+    marginBottom: 8,
   },
   input: {
-    borderColor: '#9BD1A8',
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 4,
-    height: 40,
-    paddingHorizontal: 10,
+    padding: 8,
+    marginBottom: 16,
+  },
+  save: {
+    marginTop: 16,
   },
   modalContainer: {
     flex: 1,
@@ -233,14 +221,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#ffffff',
-    padding: 30,
-    borderRadius: 4,
+    backgroundColor: '#fff',
+    padding: 24,
+    borderRadius: 8,
     alignItems: 'center',
   },
   modalText: {
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: 20,
+    marginBottom: 16,
     textAlign: 'center',
   },
 });

@@ -32,14 +32,14 @@ const Recherche = () => {
         ].map((specialite) => ({
           label: specialite,
           value: specialite,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesActuelles = [
           ...new Set(data.map((professeur) => professeur.villeFaculteActuelle)),
         ].map((ville) => ({
           label: ville,
           value: ville,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         const villesDesirees = [
           ...new Set(
@@ -48,7 +48,7 @@ const Recherche = () => {
         ].map((ville) => ({
           label: ville,
           value: ville,
-        }));
+        })).sort((a, b) => a.label.localeCompare(b.label));
 
         setSpecialiteOptions(specialites);
         setVilleActuelleOptions(villesActuelles);
@@ -75,36 +75,36 @@ const Recherche = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Rechercher</Text>
+        <Text style={styles.title}>Research</Text>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.label}>Spécialité:</Text>
+        <Text style={styles.label}>Speciality:</Text>
         <RNPickerSelect
           value={specialite}
           onValueChange={setSpecialite}
           items={specialiteOptions}
-          placeholder={{ label: 'Sélectionner une spécialité', value: '' }}
+          placeholder={{ label: 'Select speciality', value: '' }}
         />
 
-        <Text style={styles.label}>Ville actuelle:</Text>
+        <Text style={styles.label}>Current City:</Text>
         <RNPickerSelect
           value={villeActuelle}
           onValueChange={setVilleActuelle}
           items={villeActuelleOptions}
-          placeholder={{ label: 'Sélectionner une ville actuelle', value: '' }}
+          placeholder={{ label: 'Select current city', value: '' }}
         />
 
-        <Text style={styles.label}>Ville désirée:</Text>
+        <Text style={styles.label}>Desired cities:</Text>
         <RNPickerSelect
           value={villeDesiree}
           onValueChange={setVilleDesiree}
           items={villeDesireeOptions}
-          placeholder={{ label: 'Sélectionner une ville désirée', value: '' }}
+          placeholder={{ label: 'Select desired cities:', value: '' }}
         />
 
         <Button
           color="#D8BFD8"
-          title="Réinitialiser"
+          title="Reset"
           onPress={() => {
             setSpecialite('');
             setVilleActuelle('');
@@ -112,7 +112,7 @@ const Recherche = () => {
           }}
         />
 
-        <Text style={styles.label}>Résultat de la recherche:</Text>
+        <Text style={styles.label}>Result of the research:</Text>
         {filteredProfesseurs.map((professeur) => (
           <View key={professeur.id} style={styles.card}>
             <Text
@@ -120,7 +120,7 @@ const Recherche = () => {
                 styles.textlabel
               }>{`${professeur.nom} ${professeur.prenom}`}</Text>
             <Text>{`${professeur.email} | ${professeur.grade}`}</Text>
-            <Text>{`Spécialité: ${professeur.specialite}`}</Text>
+            <Text>{`Speciality: ${professeur.specialite}`}</Text>
             <Text>{` ${professeur.villeFaculteActuelle}`}-----{` ${professeur.villeDesiree}`} </Text>
           </View>
         ))}
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontWeight: 'bold',
+        textAlign: 'center',
   },
   card: {
     backgroundColor: '#F4F4F4',

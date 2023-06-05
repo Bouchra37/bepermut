@@ -46,12 +46,12 @@ const App = () => {
   const Accueil = () => (
     <ScrollView style={styles.container}>
       <View style={styles.titreacc}>
-        <Text style={styles.title}>Accueil</Text>
+        <Text style={styles.title}>Home</Text>
       </View>
 
       <View style={styles.cardContainer}>
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Nombre de profs inscrits : </Text>
+          <Text style={styles.cardTitle}>Number of registered teachers: </Text>
           <Text style={styles.nombreProfesseurs}>
             {nombreProfesseursInscrits}
           </Text>
@@ -59,21 +59,21 @@ const App = () => {
       </View>
 
       <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Nombre de profs par spécialité : </Text>
+        <Text style={styles.chartTitle}>Number of teachers by specialty: </Text>
         <ProfesseursParSpecialiteChart />
       </View>
 
       <View style={styles.separator} />
 
       <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Villes les plus demandées :</Text>
+        <Text style={styles.chartTitle}>Most requested cities:</Text>
         <VillesDemandeesChart />
       </View>
 
       <View style={styles.separator} />
 
       <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Nombre de profs par grade :</Text>
+        <Text style={styles.chartTitle}>Number of teachers per grade:</Text>
         <ProfesseursParGradeChart />
       </View>
 
@@ -97,15 +97,15 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Accueil"
+          initialRouteName="Home"
           activeColor="#fff"
           shifting={true}>
           {isLoggedIn() ? (
             <>
               <Tab.Screen
-                name="Accueil"
+                name="Home"
                 options={{
-                  tabBarLabel: 'Accueil',
+                  tabBarLabel: 'Home',
                   tabBarColor: '#8CBED6',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -135,10 +135,10 @@ const App = () => {
               />
 
               <Tab.Screen
-                name="Recherche"
+                name="Research"
                 component={Recherche}
                 options={{
-                  tabBarLabel: 'Recherche',
+                  tabBarLabel: 'Research',
                   tabBarColor: '#D8BFD8',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -151,10 +151,10 @@ const App = () => {
               />
 
               <Tab.Screen
-                name="À propos"
+                name="About"
                 component={Apropos}
                 options={{
-                  tabBarLabel: 'À propos',
+                  tabBarLabel: 'About',
                   tabBarColor: '#FFAEB9',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -169,9 +169,9 @@ const App = () => {
           ) : (
             <>
               <Tab.Screen
-                name="Accueil"
+                name="Home"
                 options={{
-                  tabBarLabel: 'Accueil',
+                  tabBarLabel: 'Home',
                   tabBarColor: '#8CBED6',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -185,10 +185,10 @@ const App = () => {
               />
 
               <Tab.Screen
-                name="Inscription"
+                name="Registration"
                 component={Inscription}
                 options={{
-                  tabBarLabel: 'Inscription',
+                  tabBarLabel: 'Registration',
                   tabBarColor: '#9BD1A8',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -201,10 +201,10 @@ const App = () => {
               />
 
               <Tab.Screen
-                name="Connexion"
+                name="Login"
                 component={Connexion}
                 options={{
-                  tabBarLabel: 'Se Connecter',
+                  tabBarLabel: 'Login',
                   tabBarColor: '#9BD1A8',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons
@@ -217,10 +217,10 @@ const App = () => {
               />
 
               <Tab.Screen
-                name="À propos"
+                name="About"
                 component={Apropos}
                 options={{
-                  tabBarLabel: 'À propos',
+                  tabBarLabel: 'About',
                   tabBarColor: '#FFAEB9',
                   tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons

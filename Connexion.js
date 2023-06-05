@@ -33,7 +33,7 @@ const Connexion = () => {
       const comparedPass = bcrypt.compareSync(motDePasse, hashedMotDePasse);
       if (comparedPass) {
         handleSetLoggedUserId(selectedCompte._id);
-        navigation.navigate('Accueil');
+        navigation.navigate('Home');
         setErrone(false);
       } else setErrone(true);
     } else setErrone(true);
@@ -77,7 +77,7 @@ const Connexion = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titelcont}>
-        <Text style={styles.title}>Se Connecter</Text>
+        <Text style={styles.title}>Log In</Text>
       </View>
       <Image style={styles.img} source={myImage} />
       <View style={styles.totalpage}>
@@ -87,7 +87,7 @@ const Connexion = () => {
           value={email}
           onChangeText={handleEmailChange}
         />
-        <Text style={styles.label}>Mot de passe:</Text>
+        <Text style={styles.label}>Password:</Text>
         <TextInput
           style={errone ? styles.error_input : styles.input}
           value={motDePasse}
@@ -97,10 +97,10 @@ const Connexion = () => {
         <Text style={errone ? styles.error_message : styles.error_hidden}>
           Email ou mot de passe incorrecte
         </Text>
-        <Text style={styles.mdp}>Mot de passe oublié ? </Text>
+        <Text style={styles.mdp}>Forgot password ? </Text>
         <Button
           color="#9BD1A8"
-          title="Envoyer"
+          title="Login"
           onPress={handleSubmit}
           disabled={isButtonDisabled}
         />
