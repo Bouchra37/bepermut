@@ -32,7 +32,7 @@ const Inscription = ({ navigation }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    fetch('https://troubled-red-garb.cyclic.app/professeurs')
+    fetch('https://tiny-worm-nightgown.cyclic.app/professeurs')
       .then((response) => response.json())
       .then((data) => {
         const specialites = [

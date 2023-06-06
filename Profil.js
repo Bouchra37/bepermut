@@ -44,7 +44,7 @@ const Profil = () => {
 
   // Fetch data from API and set options
   useEffect(() => {
-    fetch('https://troubled-red-garb.cyclic.app/professeurs')
+    fetch('https://tiny-worm-nightgown.cyclic.app/professeurs')
       .then((response) => response.json())
       .then((data) => {
         const specialites = [
